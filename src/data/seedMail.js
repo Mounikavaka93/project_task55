@@ -1,0 +1,216 @@
+import { DEMO_USER } from './demoUser'
+import { escapeHtml } from '../utils/format'
+
+const me = { name: DEMO_USER.name, email: DEMO_USER.email }
+
+function hoursAgo(hours) {
+  return new Date(Date.now() - hours * 60 * 60 * 1000).toISOString()
+}
+
+function message(partial) {
+  return {
+    cc: [],
+    bcc: [],
+    attachments: [],
+    read: true,
+    starred: false,
+    ...partial,
+  }
+}
+
+export function seedDemoMail() {
+  return [
+    message({
+      id: 'sf-cafe',
+      folder: 'inbox',
+      read: false,
+      from: { name: 'Cafe Elowen', email: 'hello@cafeelowen.com' },
+      to: [me],
+      subject: 'Table for two, Thursday at 7',
+      preview: 'We kept the window table. Reply if you need to move the time.',
+      date: hoursAgo(0.35),
+      body: '<p>Hello Mara,</p><p>Your table for two is held for Thursday at 7:00 PM, the window seat looking onto Mercer. If the review runs long, we can slide you to 7:30.</p><p>Ask for Nia when you arrive.</p>',
+    }),
+    message({
+      id: 'sf-jonah',
+      folder: 'inbox',
+      read: false,
+      starred: true,
+      from: { name: 'Jonah Pell', email: 'jonah@northline.studio' },
+      to: [me],
+      subject: 'Design review is on the books',
+      preview: 'Thursday, 11:00. I will bring the reading-pane studies.',
+      date: hoursAgo(1.2),
+      body: '<p>Mara,</p><p>Thursday at 11:00 still works on my side. I will bring three reading-pane studies: the split view, the full-screen mobile letter, and a quieter empty state.</p><p>If you want Felix in the room for the contract language, send him a note before noon tomorrow.</p><p>Jonah</p>',
+    }),
+    message({
+      id: 'sf-billing',
+      folder: 'inbox',
+      read: false,
+      from: { name: 'Northline Billing', email: 'billing@northline.studio' },
+      to: [me],
+      subject: 'Invoice 1042 for the September sprint',
+      preview: 'The PDF is attached. Payment is due on the 28th.',
+      date: hoursAgo(3.4),
+      attachments: [{ id: 'file-invoice', name: 'Northline-invoice-1042.pdf', size: 248 * 1024, mime: 'application/pdf' }],
+      body: '<p>Hello Mara,</p><p>Attached is invoice 1042 for the September sprint. The total matches the estimate Helena signed: discovery, the inbox prototype, and two rounds of revisions.</p><p>Payment is due on the 28th. Reply if you need the line items split for finance.</p>',
+    }),
+    message({
+      id: 'sf-helena',
+      folder: 'inbox',
+      starred: true,
+      from: { name: 'Helena Cho', email: 'helena@sablefinch.test' },
+      to: [me],
+      cc: [
+        { name: 'Felix Ortega', email: 'felix@ortega-law.com' },
+        { name: 'Priya Raman', email: 'priya@larkhiring.com' },
+      ],
+      subject: 'Launch checklist, still three open items',
+      preview: 'Archive, empty states, and the mobile menu need a last pass.',
+      date: hoursAgo(7),
+      attachments: [{ id: 'file-checklist', name: 'Launch-checklist.ods', size: 86 * 1024, mime: 'application/vnd.oasis.opendocument.spreadsheet' }],
+      body: '<p>Team,</p><p>Three items are still open before we call the inbox finished:</p><ul><li>Archive should leave a message out of the inbox without hiding it from search</li><li>Every folder needs a real empty state, not a blank panel</li><li>The mobile menu has to close after a folder is chosen</li></ul><p>The checklist is attached. I starred this so it stays easy to find.</p><p>Helena</p>',
+    }),
+    message({
+      id: 'sf-sent-roadmap',
+      folder: 'sent',
+      from: me,
+      to: [{ name: 'Helena Cho', email: 'helena@sablefinch.test' }],
+      subject: 'Re: Q4 roadmap',
+      preview: 'I would rather ship archive and a calmer compose sheet than another badge.',
+      date: hoursAgo(5),
+      body: '<p>Helena,</p><p>I would rather ship archive and a calmer compose sheet than another badge. The unread count on Inbox is enough.</p><p>I will bring the revised order to Thursday’s review.</p><p>Mara</p>',
+    }),
+    message({
+      id: 'sf-priya',
+      folder: 'inbox',
+      from: { name: 'Priya Raman', email: 'priya@larkhiring.com' },
+      to: [me],
+      subject: 'Notes on the two candidates',
+      preview: 'Both can write. Only one has shipped a dense interface.',
+      date: hoursAgo(22),
+      body: '<p>Mara,</p><p>Both candidates can write clearly. Only Ade has shipped a dense interface that people use every day. I would take the conversation with Ade first and keep Jules as a strong second.</p><p>I left a short brief in the draft you started for Thursday.</p><p>Priya</p>',
+    }),
+    message({
+      id: 'sf-amina',
+      folder: 'inbox',
+      from: { name: 'Amina Shah', email: 'amina@fieldnote.co' },
+      to: [me],
+      subject: 'Saturday market, if you are still coming',
+      preview: 'I will be at the flower stall until one. No need to bring anything.',
+      date: hoursAgo(30),
+      body: '<p>If you are still coming on Saturday, I will be at the flower stall until one. No need to bring anything except an appetite for peaches.</p><p>The vendor list you asked about is short: Elowen for coffee, Hart for bread, and the paper stall at the far end if you want envelopes that do not look like office supply.</p><p>Amina</p>',
+    }),
+    message({
+      id: 'sf-spam',
+      folder: 'spam',
+      read: false,
+      from: { name: 'Prize Desk', email: 'winner@lucky-draw.example' },
+      to: [me],
+      subject: 'You have been selected',
+      preview: 'This is the sample spam message. It does not go anywhere.',
+      date: hoursAgo(18),
+      body: '<p>Congratulations, valued customer.</p><p>This is a sample spam message so the Spam folder has something to show. There is no prize, and the link below is only an example.</p><p><a href="https://example.com">example.com</a></p>',
+    }),
+    message({
+      id: 'sf-imani',
+      folder: 'inbox',
+      starred: true,
+      from: { name: 'Imani Brooks', email: 'imani@harborboard.com' },
+      to: [me],
+      subject: 'Board notes from Tuesday',
+      preview: 'They liked the quieter product. They asked for a clearer archive.',
+      date: hoursAgo(55),
+      body: '<p>Mara,</p><p>The board liked the quieter product. They asked for a clearer archive, and they want the sample inbox to feel lived in rather than filled with placeholder names.</p><p>I told them Thursday’s review will cover that. Star this if you want it beside Helena’s checklist.</p><p>Imani</p>',
+    }),
+    message({
+      id: 'sf-sent-intro',
+      folder: 'sent',
+      from: me,
+      to: [{ name: 'Felix Ortega', email: 'felix@ortega-law.com' }],
+      bcc: [{ name: 'Imani Brooks', email: 'imani@harborboard.com' }],
+      subject: 'Studio introduction',
+      preview: 'Sending the overview we discussed. Imani is copied quietly.',
+      date: hoursAgo(76),
+      attachments: [{ id: 'file-intro', name: 'Studio-overview.pdf', size: Math.round(1.2 * 1024 * 1024), mime: 'application/pdf' }],
+      body: '<p>Felix,</p><p>Sending the studio overview we discussed. It covers the product tone, the folders we support, and what stays on the device.</p><p>Happy to walk through it after you have read the first three pages.</p><p>Mara</p>',
+    }),
+    message({
+      id: 'sf-leo',
+      folder: 'inbox',
+      from: { name: 'Leo March', email: 'leo.march@example.com' },
+      to: [me],
+      subject: 'Pier photos, finally',
+      preview: 'The light was better than I expected. Saved you the blurry ones.',
+      date: hoursAgo(96),
+      body: '<p>The light was better than I expected. I saved you the blurry ones and kept the three where the kestrel sign is readable.</p><p>If Sablefinch ever needs a photograph that is not a stock sunset, these are yours to use.</p><p>Leo</p>',
+    }),
+    message({
+      id: 'sf-hello',
+      folder: 'inbox',
+      from: { name: 'Sablefinch', email: 'hello@sablefinch.test' },
+      to: [me],
+      subject: 'A quieter place for your mail',
+      preview: 'Folders, stars, drafts, and a reading pane. Everything stays in this browser.',
+      date: hoursAgo(130),
+      body: '<p>Welcome back, Mara.</p><p>Sablefinch keeps reading, writing, and filing in one place. Star what you want nearby, archive what you are finished with, and leave drafts half-written if Thursday is still far away.</p><p>This inbox is stored in the browser. Refresh the page and it will still be here.</p>',
+    }),
+    message({
+      id: 'sf-archive-office',
+      folder: 'archive',
+      from: { name: 'Helena Cho', email: 'helena@sablefinch.test' },
+      to: [me],
+      subject: 'Office move is done',
+      preview: 'The plants survived. The good mugs did not.',
+      date: hoursAgo(150),
+      body: '<p>The move is done. The plants survived. The good mugs did not.</p><p>I archived the thread so it stops competing with the launch notes.</p><p>Helena</p>',
+    }),
+    message({
+      id: 'sf-draft-thursday',
+      folder: 'drafts',
+      from: me,
+      to: [{ name: 'Helena Cho', email: 'helena@sablefinch.test' }],
+      subject: 'Thursday talking points',
+      preview: 'Three things I want to cover before we open the floor.',
+      date: hoursAgo(2),
+      body: '<p>Helena,</p><p>Three things before we open the floor:</p><ul><li>The reading pane on smaller laptops</li><li>Who signs off on the empty states</li><li>Whether archive should stay one click away</li></ul>',
+    }),
+    message({
+      id: 'sf-trash-letter',
+      folder: 'trash',
+      from: { name: 'Weekly Paper', email: 'news@weeklypaper.example' },
+      to: [me],
+      subject: 'This week in small rooms',
+      preview: 'A newsletter you already decided to throw out.',
+      date: hoursAgo(240),
+      body: '<p>This is an old newsletter sitting in Trash so you can restore it or remove it for good.</p><p>Nothing in it needs a reply.</p>',
+    }),
+    message({
+      id: 'sf-felix',
+      folder: 'inbox',
+      from: { name: 'Felix Ortega', email: 'felix@ortega-law.com' },
+      to: [me],
+      subject: 'Redlines on the service summary',
+      preview: 'Two clauses to soften, none that change the product.',
+      date: hoursAgo(40),
+      body: '<p>Mara,</p><p>I marked two clauses to soften. Neither one changes the product: accounts stay on the device, and the sample inbox is clearly a demo.</p><p>Send the revised summary when you want another pass. I am on the launch thread with Helena if Thursday needs a legal ear.</p><p>Felix</p>',
+    }),
+  ]
+}
+
+export function welcomeMail(user) {
+  const first = escapeHtml(user.name).split(' ')[0]
+  return [
+    message({
+      id: crypto.randomUUID(),
+      folder: 'inbox',
+      read: false,
+      from: { name: 'Sablefinch', email: 'hello@sablefinch.test' },
+      to: [{ name: user.name, email: user.email }],
+      subject: 'Your inbox is ready',
+      preview: 'Compose, star, archive, and draft. Your mail stays in this browser.',
+      date: new Date().toISOString(),
+      body: `<p>Hello ${first},</p><p>This is your Sablefinch inbox. Compose a message, star the ones you want nearby, and file the rest in Archive.</p><p>Everything lives in this browser. Refresh the page and your mail will still be here.</p>`,
+    }),
+  ]
+}

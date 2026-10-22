@@ -1,0 +1,241 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --color-canvas: var(--sf-canvas);
+  --color-panel: var(--sf-panel);
+  --color-panel-2: var(--sf-panel-2);
+  --color-sidebar: var(--sf-sidebar);
+  --color-ink: var(--sf-ink);
+  --color-muted: var(--sf-muted);
+  --color-faint: var(--sf-faint);
+  --color-line: var(--sf-line);
+  --color-accent: var(--sf-accent);
+  --color-accent-strong: var(--sf-accent-strong);
+  --color-accent-soft: var(--sf-accent-soft);
+  --color-accent-ink: var(--sf-accent-ink);
+  --color-star: var(--sf-star);
+  --color-danger: var(--sf-danger);
+  --color-danger-ink: var(--sf-danger-ink);
+  --color-danger-soft: var(--sf-danger-soft);
+}
+
+:root {
+  color-scheme: light;
+  --sf-canvas: #efeae2;
+  --sf-panel: #fbf8f3;
+  --sf-panel-2: #f3eee6;
+  --sf-sidebar: #f6f2eb;
+  --sf-ink: #1c1916;
+  --sf-muted: #6e665d;
+  --sf-faint: #8d847a;
+  --sf-line: #e4dcd1;
+  --sf-accent: #14685f;
+  --sf-accent-strong: #0e524b;
+  --sf-accent-soft: #e4f3ef;
+  --sf-accent-ink: #f5fffc;
+  --sf-star: #b7791f;
+  --sf-danger: #a61b22;
+  --sf-danger-ink: #fff7f6;
+  --sf-danger-soft: #fdeceb;
+}
+
+.dark {
+  color-scheme: dark;
+  --sf-canvas: #100f0d;
+  --sf-panel: #1b1916;
+  --sf-panel-2: #24211d;
+  --sf-sidebar: #161411;
+  --sf-ink: #f4efe8;
+  --sf-muted: #b3a89d;
+  --sf-faint: #8f867c;
+  --sf-line: #332e28;
+  --sf-accent: #49c7b8;
+  --sf-accent-strong: #7ad9cd;
+  --sf-accent-soft: #16332f;
+  --sf-accent-ink: #06221e;
+  --sf-star: #e2b15a;
+  --sf-danger: #f0a29c;
+  --sf-danger-ink: #2a0e0c;
+  --sf-danger-soft: #3a1d1b;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--sf-canvas);
+  color: var(--sf-ink);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.scroll-area {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: var(--sf-accent-soft);
+  color: var(--sf-ink);
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--sf-accent);
+  outline-offset: 2px;
+}
+
+.field {
+  height: 2.75rem;
+  width: 100%;
+  border-radius: 0.85rem;
+  border: 1px solid var(--sf-line);
+  background: var(--sf-panel);
+  padding-inline: 0.85rem;
+  color: var(--sf-ink);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.field::placeholder {
+  color: var(--sf-faint);
+}
+
+.field.has-toggle {
+  padding-right: 3rem;
+}
+
+.field:focus,
+.field:focus-visible {
+  outline: none;
+  border-color: var(--sf-accent);
+  box-shadow: 0 0 0 4px var(--sf-accent-soft);
+}
+
+.field[aria-invalid="true"] {
+  border-color: var(--sf-danger);
+}
+
+.field[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 4px var(--sf-danger-soft);
+}
+
+.brand-panel {
+  background:
+    radial-gradient(900px 420px at -10% -10%, rgba(255, 255, 255, 0.14), transparent 55%),
+    linear-gradient(165deg, #1a6d63 0%, #0e3f3a 48%, #10211f 100%);
+  color: #f7f4ee;
+}
+
+.editor {
+  min-height: 240px;
+  padding: 0.95rem 1rem 1.4rem;
+  outline: none;
+}
+
+.editor:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--sf-accent);
+}
+
+.prose-mail p,
+.editor p {
+  margin: 0.75em 0;
+}
+
+.prose-mail ul,
+.editor ul,
+.prose-mail ol,
+.editor ol {
+  margin: 0.75em 0;
+  padding-left: 1.25rem;
+}
+
+.prose-mail ul,
+.editor ul {
+  list-style: disc;
+}
+
+.prose-mail ol,
+.editor ol {
+  list-style: decimal;
+}
+
+.prose-mail blockquote,
+.editor blockquote {
+  margin: 1rem 0;
+  border-left: 2px solid var(--sf-line);
+  padding-left: 0.9rem;
+  color: var(--sf-muted);
+}
+
+.prose-mail a {
+  color: var(--sf-accent);
+  text-decoration: underline;
+}
+
+.prose-mail,
+.editor {
+  overflow-wrap: anywhere;
+  line-height: 1.65;
+}
+
+@keyframes sf-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: sf-rise 380ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  .scroll-area {
+    scroll-behavior: auto;
+  }
+
+  .rise {
+    animation: none;
+  }
+}
